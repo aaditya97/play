@@ -53,10 +53,24 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         self.pokemonSprite.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
         self.pokemonSprite.zPosition = 1
         
+        
+        //pokemon physics
+        self.pokemonSprite.physicsBody = SKPhysicsBody(rectangleOf: kPokemonSize)
+        self.pokemonSprite.physicsBody?.isDynamic = false
+        self.pokemonSprite.physicsBody?.affectedByGravity = false
+        self.pokemonSprite.physicsBody?.mass = 5.0
+        
         // movements
         let moveRight = SKAction.moveBy(x: 100, y: 0, duration: 3.0)
         let sequence = SKAction.sequence([moveRight, moveRight.reversed(), moveRight.reversed(), moveRight])
         self.pokemonSprite.run(SKAction.repeatForever(sequence))
+        
+        
+        //bitmarks
+        self.pokemonSprite.physicsBody?.categoryBitMask = kPokemonCategory
+        self.pokemonSprite.physicsBody?.collisionBitMask = kEdgeCategory
+        self.pokemonSprite.physicsBody?.contactTestBitMask = kPokeballCategory
+        
         self.addChild(pokemonSprite)
         
     }
@@ -65,7 +79,22 @@ class BattleScene: SKScene, SKPhysicsContactDelegate {
         self.pokeballSprite.size = kPokeballSize
         self.pokeballSprite.position = CGPoint(x: self.size.width/2, y: 50)
         self.pokeballSprite.zPosition = 1
-        self.addChild(pokeballSprite)
+        
+            
+            //setup pokeball physics
+            self.pokeballSprite.physicsBody = SKPhysicsBody(circleOfRadius: self.pokeballSprite.frame.size.width/2)
+            self.pokeballSprite.physicsBody?.affectedByGravity = true
+            self.pokeballSprite.physicsBody?.isDynamic = true
+            self.pokeballSprite.physicsBody?.mass = 0.5
+            
+            //bitmarks
+            self.pokeballSprite.physicsBody?.categoryBitMask = kPokeballCategory
+            self.pokeballSprite.physicsBody?.contactTestBitMask = kPokemonCategory
+            self.pokeballSprite.physicsBody?.collisionBitMask = kPokemonCategory | kEdgeCategory
+            
+            self.addChild(pokeballSprite)
+            
+            
             
     }
         
