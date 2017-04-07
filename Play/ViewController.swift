@@ -96,6 +96,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         self.manager.stopUpdatingLocation()
     }
     
+    @objc(mapView:didSelectAnnotationView:) func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        mapview.deselectAnnotation(view.annotation!, animated: true)
+        if view.annotation! is MKUserLocation {
+            return
+    }
+     
+        let region = MKCoordinateRegionMakeWithDistance((view.annotation?.coordinate)!, 150 , 150)
+        self.mapview.setRegion(region, animated: true)
+        
+        if let coordinate = self.manager.location?.coordinate {
+            if MKMapRectContainsPoint(mapview.visibleMapRect, MKMapPointForCoordinate(coordinate)) {
+                print("in range")
+            }else {
+                print("out of range")
+                
+            }
+        }
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
