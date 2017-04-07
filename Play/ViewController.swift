@@ -108,12 +108,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         if let coordinate = self.manager.location?.coordinate {
             if MKMapRectContainsPoint(mapview.visibleMapRect, MKMapPointForCoordinate(coordinate)) {
                 let battle = BattleViewController()
+                
                 let pokemon = (view.annotation as! PokemonAnnotation).pokemon
                 
                 battle.pokemon = pokemon
                 
                 self.present(battle, animated: true, completion: nil)
                 print("in range")
+                
+                self.mapview.removeAnnotation(view.annotation!)
                 
             }else {
                 print("out of range")

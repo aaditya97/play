@@ -29,6 +29,12 @@ class BattleViewController: UIViewController {
         
         skview.presentScene(scene)
         // Do any additional setup after loading the view.
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(returnToMapViewController), name: NSNotification.Name("CloseBattle"), object: nil)
+    }
+    
+    func returnToMapViewController(){
+        self.dismiss(animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
