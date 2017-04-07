@@ -49,7 +49,7 @@ class pokedex: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return "Caught Pokemon"
         }else {
-            return " uncaught Pokemon"
+            return "Uncaught Pokemon"
         }
     }
     
